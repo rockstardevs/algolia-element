@@ -37,6 +37,7 @@ This element uses the demo data from the Algolia website. This index contains a 
 
 # Advanced Usage
 
+```
 <algolia-element
     app-id="latency"
     api-key="6be0576ff61c053d5f9a3225e2a90f76"
@@ -45,6 +46,7 @@ This element uses the demo data from the Algolia website. This index contains a 
     attr-for-description="description"
     attr-for-image="image">
 </algolia-element>
+```
 
 You can substitute the `attr-for` attributes for your own property names.
 
