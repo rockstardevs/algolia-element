@@ -27,6 +27,8 @@ There will be more updates soon!
 
 This element uses the demo data from the Algolia website. This index contains a list of products from Amazon.
 
+Replace `app-id`, `api-key` and `index-name` with your credentials to work with your own data.
+
 ```html
 <algolia-element
     app-id="latency"
@@ -55,7 +57,8 @@ You can substitute the `attr-for` attributes for your own property names.
 `bower install --save rovervannispen/algolia-element`
 
 # Authors
-Rover van Nispen tot Pannerden - Qlouder
+Rover van Nispen tot Pannerden - <a href="https://qlouder.com">Qlouder</a>
+
 See also the list of contributors who participated in this project.
 
 # License
