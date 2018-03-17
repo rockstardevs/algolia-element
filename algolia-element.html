@@ -1,0 +1,182 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-input/paper-input-container.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-item/paper-item-body.html">
+<link rel="import" href="../paper-item/paper-icon-item.html">
+<link rel="import" href="../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="imports/imports.html">
+
+<dom-module id="algolia-element">
+    <template>
+        <style include="iron-flex iron-flex-alignment">
+            :host {
+                display: block;
+            }
+
+            paper-icon-item img {
+                width: 3em;
+                max-height: 3em;
+            }
+
+            paper-checkbox {
+                display: block;
+                margin-bottom: 8px;
+            }
+
+
+            .search-input > h3:nth-of-type(1) {
+                margin-bottom: 0;
+            }
+
+        </style>
+
+
+        <div class="layout vertical">
+            <div class="search-input">
+                <paper-input value="{{searchValue}}" label="Search..." id="searchbar"></paper-input>
+            </div>
+            <div class="search-hits">
+
+                <template is="dom-repeat" items="[[hits]]">
+                    <paper-icon-item>
+                        <img src="[[item.image]]" slot="item-icon"/>
+                        <paper-item-body two-line>
+                            <div inner-h-t-m-l="[[_toBold(item._highlightResult.name.value)]]"></div>
+                            <div secondary>[[item.description]]</div>
+                        </paper-item-body>
+                    </paper-icon-item>
+                </template>
+                <template is="dom-if" if="[[_isEmpty(hits)]]">No results...</template>
+            </div>
+        </div>
+
+    </template>
+
+    <script>
+        /**
+         * `algolia-element`
+         * This element will let you use Algolia&#39;s Instant Search from within your Polymer application
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class AlgoliaElement extends Polymer.Element {
+            static get is() {
+                return 'algolia-element';
+            }
+
+            static get properties() {
+                return {
+                    appId: {
+                        type: String,
+                        value: ''
+                    },
+                    apiKey: {
+                        type: String,
+                        value: ''
+                    },
+                    indexName: {
+                        type: String,
+                        value: ''
+                    },
+                    urlSync: {
+                        type: Boolean,
+                        value: true
+                    }
+                }
+            };
+
+
+            ready() {
+                super.ready();
+                /**
+                 * Initialise instantsearch with the credentials
+                 * these are provided by the attributes of <algolia-element>
+                 */
+                if (this.appId && this.apiKey && this.indexName) {
+                    debugger;
+                    this.search = instantsearch({
+                        appId: this.appId,
+                        apiKey: this.apiKey,
+                        indexName: this.indexName,
+                        urlSync: this.urlSync
+                    });
+                    this._showWidgets()
+                } else {
+                    /**
+                     * Throw an error when not all credentials are provided
+                     */
+                    console.error("Please provide an appId, apiKey and indexName")
+                }
+            }
+
+            _showWidgets() {
+                /**
+                 * Render search functions
+                 */
+                var customSearchBox = instantsearch.connectors.connectSearchBox(this._renderSearchFn.bind(this));
+                this.search.addWidget(
+                    customSearchBox()
+                );
+                /**
+                 * Render hits functions
+                 */
+                var customHits = instantsearch.connectors.connectHits(this._renderHitsFn.bind(this));
+                this.search.addWidget(
+                    customHits()
+                );
+                /**
+                 * Start search with the widgets attached
+                 */
+                this.search.start();
+            }
+
+            _renderHitsFn(HitsRenderingOptions) {
+                /**
+                 * Set hits and make it observable for the dom-repeat
+                 */
+                if (HitsRenderingOptions.hits && HitsRenderingOptions.hits.length > 0) {
+                    this.set("hits", HitsRenderingOptions.hits);
+                } else {
+                    this.set("hits", []);
+                }
+            }
+
+            _renderSearchFn(SearchBoxRenderingOptions, isFirstRendering) {
+                /**
+                 * Place event listener on the search bar and refine the items on every keyup event
+                 */
+                if (isFirstRendering) {
+                    SearchBoxRenderingOptions.widgetParams.containerNode = this.$.searchbar;
+                    SearchBoxRenderingOptions.widgetParams.containerNode.addEventListener('keyup', function (event) {
+                        SearchBoxRenderingOptions.refine(this.value);
+                    });
+                    SearchBoxRenderingOptions.widgetParams.containerNode.value = SearchBoxRenderingOptions.query
+                }
+            }
+
+            _toBold(string) {
+                /**
+                 * Format <em> elements to bold to make it more visible
+                 *
+                 * TODO: rewrite to use the template functionality provided by Algolia
+                 */
+                if (string) {
+                    return string.replace(/<em>/g, "<strong>").replace(/<\/em>/g, "</strong>");
+                }
+            }
+
+            _isEmpty(arr){
+                /**
+                 * if results are empty return true and show "No results..."
+                 */
+                return arr.length === 0;
+            }
+        }
+
+        window.customElements.define(AlgoliaElement.is, AlgoliaElement);
+    </script>
+</dom-module>
