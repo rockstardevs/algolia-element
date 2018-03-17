@@ -22,7 +22,7 @@ This repo will let you use Algolias Instant Search with an easy to use component
 
 There will be more updates soon!
 
-# Demo
+# Basic Usage
 <img src="docs/demo-algolia-element.png" width="500" alt="Demo screenshots">
 
 This element uses the demo data from the Algolia website. This index contains a list of products from Amazon.
@@ -34,6 +34,20 @@ This element uses the demo data from the Algolia website. This index contains a 
     index-name="instant_search">
 </algolia-element>
 ```
+
+# Advanced Usage
+
+<algolia-element
+    app-id="latency"
+    api-key="6be0576ff61c053d5f9a3225e2a90f76"
+    index-name="instant_search"
+    attr-for-title="name"
+    attr-for-description="description"
+    attr-for-image="image">
+</algolia-element>
+
+You can substitute the `attr-for` attributes for your own property names.
+
 
 # Installation
 `bower install --save rovervannispen/algolia-element`
