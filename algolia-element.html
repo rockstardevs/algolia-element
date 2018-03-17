@@ -30,6 +30,9 @@
                 margin-bottom: 0;
             }
 
+            em {
+                font-weight: 900;
+            }
         </style>
 
 
@@ -41,10 +44,10 @@
 
                 <template is="dom-repeat" items="[[hits]]">
                     <paper-icon-item>
-                        <img src="[[item.image]]" slot="item-icon"/>
+                        <img src="[[_formatAttr(item, attrForImage)]]" slot="item-icon"/>
                         <paper-item-body two-line>
-                            <div inner-h-t-m-l="[[_toBold(item._highlightResult.name.value)]]"></div>
-                            <div secondary>[[item.description]]</div>
+                            <div inner-h-t-m-l="[[_formatAttr(item, attrForTitle, 'true')]]"></div>
+                            <div secondary>[[_formatAttr(item, attrForDescription)]]</div>
                         </paper-item-body>
                     </paper-icon-item>
                 </template>
@@ -85,6 +88,18 @@
                     urlSync: {
                         type: Boolean,
                         value: true
+                    },
+                    attrForTitle: {
+                        type: String,
+                        value: 'name'
+                    },
+                    attrForImage: {
+                        type: String,
+                        value: 'image'
+                    },
+                    attrForDescription: {
+                        type: String,
+                        value: 'description'
                     }
                 }
             };
@@ -97,7 +112,6 @@
                  * these are provided by the attributes of <algolia-element>
                  */
                 if (this.appId && this.apiKey && this.indexName) {
-                    debugger;
                     this.search = instantsearch({
                         appId: this.appId,
                         apiKey: this.apiKey,
@@ -158,14 +172,18 @@
                 }
             }
 
-            _toBold(string) {
+            _formatAttr(item, prop, isHighlight){
                 /**
-                 * Format <em> elements to bold to make it more visible
-                 *
-                 * TODO: rewrite to use the template functionality provided by Algolia
+                 * Get property based on settings
+                 * Item is full item from Algolia.
+                 * If isHighlight is true we need to get the value from the highLightResult object
                  */
-                if (string) {
-                    return string.replace(/<em>/g, "<strong>").replace(/<\/em>/g, "</strong>");
+
+                if(isHighlight === 'true'){
+                    return item._highlightResult[prop].value
+                }
+                if(item && item[prop]){
+                    return item[prop];
                 }
             }
 
