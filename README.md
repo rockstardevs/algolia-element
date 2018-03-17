@@ -36,7 +36,7 @@ This element uses the demo data from the Algolia website. This index contains a 
 ```
 
 # Installation
-bower install --save rovervannispen/algolia-element
+`bower install --save rovervannispen/algolia-element`
 
 # Authors
 Rover van Nispen tot Pannerden - Qlouder
