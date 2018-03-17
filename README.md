@@ -6,16 +6,9 @@ This element will let you use Algolia&#39;s Instant Search from within your Poly
 
 # Demo
 
-<!--
-```
-<custom-element-demo>
-  <template>
-    <link rel="import" href="../algolia-element.html">
-  </template>
-</custom-element-demo>
-```
--->
-This element uses the demo data from the Algolia website.
+![demo screenshot](docs/demo-algolia-element.png)
+
+This element uses the demo data from the Algolia website. This index contains a list of products from Amazon.
 
 ```html
 <algolia-element
@@ -24,3 +17,14 @@ This element uses the demo data from the Algolia website.
     index-name="instant_search">
 </algolia-element>
 ```
+
+
+# Authors
+Rover van Nispen tot Pannerden - Qlouder
+See also the list of contributors who participated in this project.
+
+# License
+This project is licensed under the MIT License - see the LICENSE.md file for details.
+
+# Acknowledgments
+This component is based on the instantsearch.js library built by Algolia.
