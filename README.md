@@ -23,7 +23,7 @@ This repo will let you use Algolias Instant Search with an easy to use component
 There will be more updates soon!
 
 # Demo
-<img src="docs/demo-algolia-element.png" width="200" alt="Demo screenshots">
+<img src="docs/demo-algolia-element.png" width="500" alt="Demo screenshots">
 
 This element uses the demo data from the Algolia website. This index contains a list of products from Amazon.
 
