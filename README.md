@@ -15,10 +15,12 @@ This element will let you use Algolia&#39;s Instant Search from within your Poly
 </custom-element-demo>
 ```
 -->
+This element uses the demo data from the Algolia website.
+
 ```html
 <algolia-element
-              app-id="latency"
-              api-key="6be0576ff61c053d5f9a3225e2a90f76"
-              index-name="instant_search">
-      </algolia-element>
+    app-id="latency"
+    api-key="6be0576ff61c053d5f9a3225e2a90f76"
+    index-name="instant_search">
+</algolia-element>
 ```
