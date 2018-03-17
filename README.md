@@ -4,6 +4,24 @@
 
 This element will let you use Algolia&#39;s Instant Search from within your Polymer application
 
+# Why this component
+Algolia can be integrated in Angular, Vue and React but not in Polymer. Now it's possible!
+This repo will let you use Algolias Instant Search with an easy to use component.
+
+**Current features**
+
+- Free text search on the full index
+
+**Features in progress**
+
+- Refinement list
+- Pagination
+- Numeric refinement
+- Range filters
+- Geo search
+
+There will be more updates soon!
+
 # Demo
 
 ![demo screenshot](docs/demo-algolia-element.png)
@@ -18,6 +36,8 @@ This element uses the demo data from the Algolia website. This index contains a 
 </algolia-element>
 ```
 
+# Installation
+bower install --save rovervannispen/algolia-element
 
 # Authors
 Rover van Nispen tot Pannerden - Qlouder
