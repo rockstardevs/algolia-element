@@ -6,9 +6,6 @@ This element will let you use Algolia&#39;s Instant Search from within your Poly
 
 # Demo
 
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
-
-
 <custom-element-demo>
   <template>
   <link rel="import" href="../algolia-element.html">
