@@ -1,0 +1,121 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-input/paper-input-container.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-item/paper-item-body.html">
+<link rel="import" href="../paper-item/paper-icon-item.html">
+<link rel="import" href="../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="imports/imports.html">
+
+<dom-module id="algolia-element-refinement">
+    <template>
+        <style include="iron-flex iron-flex-alignment">
+            :host {
+                display: block;
+            }
+
+            paper-icon-item img {
+                width: 3em;
+                max-height: 3em;
+            }
+
+            paper-checkbox {
+                display: block;
+                margin-bottom: 8px;
+            }
+
+            .search-input {
+                width: 25%;
+            }
+
+            .search-hits {
+                width: 50%;
+            }
+
+            .search-input > h3:nth-of-type(1) {
+                margin-bottom: 0;
+            }
+
+            .active {
+                background: black;
+                color: white;
+            }
+        </style>
+
+
+        <div class="layout vertical">
+            <h3>Refinement</h3>
+
+            <template is="dom-repeat" items="[[refinementOptions]]">
+                <paper-checkbox value="{{item.value}}" refine-value="{{item.value}}" on-tap="_refineList"
+                                checked="[[item.isRefined]]">
+                    [[item.label]] ([[item.count]])
+                </paper-checkbox>
+            </template>
+        </div>
+
+    </template>
+
+    <script>
+        /**
+         * `algolia-element`
+         * This element will let you use Algolia&#39;s Instant Search from within your Polymer application
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class AlgoliaElementRefinement extends Polymer.Element {
+            static get is() {
+                return 'algolia-element-refinement';
+            }
+
+            static get properties() {
+                return {}
+            };
+
+            ready() {
+                super.ready();
+                this._showWidget();
+            }
+
+            _showWidget() {
+
+                /**
+                 * Render hits functions
+                 */
+
+                if(instantsearch.addWidget){
+
+                    var customRefinementList = instantsearch.connectors.connectRefinementList(this._renderRefinementList.bind(this));
+                    instantsearch.addWidget(
+                        customRefinementList({
+                            attributeName: this.refinementlistWidget,
+                            operator: this.operator,
+                            limit: this.limit
+                        })
+                    );
+                }
+
+
+                // this.search.start();
+            }
+
+            _renderRefinementList(RefinementListRenderingOptions, isFirstRendering) {
+                if (RefinementListRenderingOptions.canRefine) {
+                    //store for use in a later stage
+                    this.RefinementListRenderingOptions = RefinementListRenderingOptions;
+                    this.set("refinementOptions", RefinementListRenderingOptions.items);
+                }
+            }
+
+            _refineItems() {
+                instantsearch.connectors.connectRefinementList(this._renderRefinementList.bind(this))
+            }
+
+        }
+
+        window.customElements.define(AlgoliaElementRefinement.is, AlgoliaElementRefinement);
+    </script>
+</dom-module>
