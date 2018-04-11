@@ -11,7 +11,7 @@
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
     <link rel="import" href="../algolia-element.html">
-    <!--<link rel="import" href="../algolia-element-refinement.html">-->
+    <link rel="import" href="../algolia-element-refinement.html">
 
     <custom-style>
       <style is="custom-style" include="demo-pages-shared-styles">
@@ -19,10 +19,12 @@
     </custom-style>
   </head>
   <body>
+    Selected
       <algolia-element
               app-id="latency"
               api-key="6be0576ff61c053d5f9a3225e2a90f76"
-              index-name="instant_search">
+              index-name="instant_search"
+              value="{{value}}">
       </algolia-element>
   </body>
 </html>

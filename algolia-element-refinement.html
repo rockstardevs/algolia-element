@@ -1,12 +1,16 @@
-<link rel="import" href="../polymer/polymer-element.html">
-<link rel="import" href="../paper-input/paper-input.html">
-<link rel="import" href="../paper-input/paper-input-container.html">
-<link rel="import" href="../paper-item/paper-item.html">
-<link rel="import" href="../paper-item/paper-item-body.html">
-<link rel="import" href="../paper-item/paper-icon-item.html">
-<link rel="import" href="../paper-checkbox/paper-checkbox.html">
-<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="imports/imports.html">
+<!--<link rel="import" href="../polymer/polymer-element.html">-->
+<!--<link rel="import" href="../paper-input/paper-input.html">-->
+<!--<link rel="import" href="../paper-input/paper-input-container.html">-->
+<!--<link rel="import" href="../paper-item/paper-item.html">-->
+<!--<link rel="import" href="../paper-item/paper-item-body.html">-->
+<!--<link rel="import" href="../paper-item/paper-icon-item.html">-->
+<!--<link rel="import" href="../paper-checkbox/paper-checkbox.html">-->
+<!--<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">-->
+<!--<link rel="import" href="imports/imports.html">-->
+
+<link rel="import" href="algolia-element.html">
+
+
 
 <dom-module id="algolia-element-refinement">
     <template>
@@ -66,25 +70,63 @@
          * @polymer
          * @demo demo/index.html
          */
-        class AlgoliaElementRefinement extends Polymer.Element {
+        class AlgoliaElementRefinement extends MyMixin(Polymer.Element) {
             static get is() {
                 return 'algolia-element-refinement';
             }
 
             static get properties() {
-                return {}
+                return {
+                    search: {
+                        type: Object,
+                        observer: '_showRefinementList'
+                    }
+                }
             };
 
-            ready() {
+
+            /*connectedCallback(){
+                super.connectedCallback();
+                debugger;
+
+                if(document.querySelector('algolia-element')){
+                    document.querySelector('algolia-element').addEventListener('algolia-initialized', function (e) {
+                        debugger;
+                        console.log(e.detail.kicked); // true
+                    })
+                }
+
+
+                // window.addEventListener('algolia-initialized', this._initialized);
+            }*/
+
+            ready(){
                 super.ready();
-                this._showWidget();
+
+                var test = this;
+                debugger;
+                if(document.querySelector('algolia-element')){
+                    document.querySelector('algolia-element').addEventListener('algolia-initialized', function (e) {
+
+                        console.log(e.detail.kicked); // true
+                    })
+                }
+                // this._showRefinementList();
+            }
+            // static get observers() {
+            //     return [ '_showRefinementList(search.*)' ];
+            // }
+
+            _initialized(e){
+                debugger
             }
 
-            _showWidget() {
+            _showRefinementList() {
 
                 /**
                  * Render hits functions
                  */
+                debugger;
 
                 if(instantsearch.addWidget){
 
@@ -102,17 +144,17 @@
                 // this.search.start();
             }
 
-            _renderRefinementList(RefinementListRenderingOptions, isFirstRendering) {
-                if (RefinementListRenderingOptions.canRefine) {
-                    //store for use in a later stage
-                    this.RefinementListRenderingOptions = RefinementListRenderingOptions;
-                    this.set("refinementOptions", RefinementListRenderingOptions.items);
-                }
-            }
-
-            _refineItems() {
-                instantsearch.connectors.connectRefinementList(this._renderRefinementList.bind(this))
-            }
+            // _renderRefinementList(RefinementListRenderingOptions, isFirstRendering) {
+            //     if (RefinementListRenderingOptions.canRefine) {
+            //         //store for use in a later stage
+            //         this.RefinementListRenderingOptions = RefinementListRenderingOptions;
+            //         this.set("refinementOptions", RefinementListRenderingOptions.items);
+            //     }
+            // }
+            //
+            // _refineItems() {
+            //     instantsearch.connectors.connectRefinementList(this._renderRefinementList.bind(this))
+            // }
 
         }
 

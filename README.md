@@ -46,13 +46,23 @@ Replace `app-id`, `api-key` and `index-name` with your credentials to work with 
     index-name="instant_search"
     attr-for-title="name"
     attr-for-description="description"
-    attr-for-image="image">
+    attr-for-image="image"
+    value="{{value}}">
 </algolia-element>
 ```
 
 You can substitute the `attr-for` attributes for your own property names.
 
-
+The value property contains the full object you clicked on:
+```
+{
+    name: "Google - Google Home - White/Slate fabric", 
+    description: "Simplify your everyday life with the Google Home, …patible smart devices such as Chromecast or Nest.", 
+    brand: "Google", 
+    categories: Array(1), 
+    ....
+}
+```
 # Installation
 `bower install --save rovervannispen/algolia-element`
 
