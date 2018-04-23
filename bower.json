@@ -15,7 +15,7 @@
     "polymer": "Polymer/polymer#^2.0.0",
     "paper-item": "PolymerElements/paper-item#^2.1.0",
     "paper-input": "PolymerElements/paper-input#^2.2.0",
-    "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.2",
+    "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.2"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
